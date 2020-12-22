@@ -22,7 +22,7 @@ var calculator = new Vue({
       getResults: function () {
 
         this.totalStimulus = 0;
-        this.totalAdult = 1200;
+        this.totalAdult = 600;
         this.totalChilden = 0;
         this.nothing = false;
 
@@ -38,7 +38,7 @@ var calculator = new Vue({
             maxFull = 112500;
         }
 
-        this.totalChildren = this.children*500;
+        this.totalChildren = this.children*600;
         this.totalAdult = this.totalAdult*multiplier;
 
         this.totalStimulus = this.totalAdult + this.totalChildren;
