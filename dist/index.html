@@ -8,7 +8,7 @@
   <title>Graphic preview</title>
 
   <!--build:css css/styles.min.css-->
-  <link rel="stylesheet" href="css/stimulus-calculator-dec_styles.css">
+  <link rel="stylesheet" href="css/stimulus-calculator-feb_styles.css">
   <!--endbuild-->
 
 </head>
@@ -18,9 +18,9 @@
 
   <div id="calculator">
 
-    <p class="calculator-label">HOW MUCH COULD YOU GET IN YOUR SECOND STIMULUS CHECK?</p>
+    <p class="calculator-label">HOW MUCH COULD YOU GET IN YOUR NEXT STIMULUS CHECK?</p>
 
-    <div class="intro">Your payment will be based on your most recent tax return. Use the info from your 2019 tax return if you filed one; if you didn't, use what you filed for 2018. You can find your adjusted gross income on line 8b of the 1040 federal tax form.</div>
+    <div class="intro">Your payment will be based on your most recent tax return, either from 2020 or 2019. You can find your adjusted gross income on line 8b of the 1040 federal tax form.</div>
 
     <div class="flex-container">
 
@@ -44,7 +44,7 @@
         </div>
     
         <div class="calc-input">
-          <label for="children">Number of children under 17</label>
+          <label for="children">Number of dependents</label>
           <input type="number" name="children" v-model.number="children" maxlength="2" oninput="this.value=this.value.slice(0,this.maxLength)" ></input>
         </div>
 
@@ -61,14 +61,14 @@
 
           <p class="value-text" v-show="nothing">You will likely not receive a stimulus payment.</p>
 
-          <div class="chart-note">Note: This calculation is based on preliminary reporting and will be updated as more details become known.</div>
+          <div class="chart-note">Note: This calculation is based on the bill passed by the Senate. Details in the final bill may differ.</div>
           
         </div>
       </transition>
 
     </div>
   
-    <div class="chart-source">Source: CNBC reporting</div>
+    <div class="chart-source">Source: American Rescue Plan Act of 2021</div>
     <div class="chart-credit">kiersten schmidt/grow</div>
 
     <img src="https://fm.cnbc.com/applications/cnbc.com/resources/files/2020/01/29/h_logo_white.png" class="grow-logo">
@@ -81,7 +81,7 @@
   <!-- <script src="https://code.highcharts.com/highcharts-more.js"></script> -->
   <!--build:js js/main.min.js -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
-  <script src="js/stimulus-calculator-dec_main.js"></script>
+  <script src="js/stimulus-calculator-feb_main.js"></script>
   <!-- endbuild -->
 </body>
 </html>

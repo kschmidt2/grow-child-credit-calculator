@@ -22,37 +22,46 @@ var calculator = new Vue({
       getResults: function () {
 
         this.totalStimulus = 0;
-        this.totalAdult = 600;
+        this.totalAdult = 1400;
         this.totalChilden = 0;
         this.nothing = false;
 
         let maxFull = 75000,
-            maxAny = 99000,
+            maxCap = 5000,
             multiplier = 1,
             incomeInt = parseInt((this.income).replace(/,/g, ""), 10);
         
         if (this.filingStatus == 'married') {
             maxFull = 150000;
+            maxCap = 10000;
             multiplier = 2;
         } else if (this.filingStatus == 'head') {
             maxFull = 112500;
+            maxCap = 7500;
         }
 
-        this.totalChildren = this.children*600;
+        let maxIncome = maxFull + maxCap;
+
+        this.totalChildren = this.children*1400;
         this.totalAdult = this.totalAdult*multiplier;
 
         this.totalStimulus = this.totalAdult + this.totalChildren;
 
-        if (incomeInt > maxFull) {
-            this.totalStimulus = this.totalStimulus - (incomeInt - maxFull)*.05;
+        if (incomeInt > maxFull && incomeInt <= maxIncome) {
+            this.totalStimulus = ((maxCap - (incomeInt - maxFull))*this.totalStimulus)/maxCap;
+        } else if (incomeInt > maxIncome) {
+            this.totalStimulus = 0;
         }
+
+        console.log(this.totalStimulus)
 
         if (this.totalStimulus <= 0) {
             this.nothing = true;
         }
 
+
         this.totalStimulus = this.totalStimulus.toLocaleString(undefined,
-            {'minimumFractionDigits':0,'maximumFractionDigits':0});
+            {'minimumFractionDigits':0,'maximumFractionDigits':2});
 
       },
     },
