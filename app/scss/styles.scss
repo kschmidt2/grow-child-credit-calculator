@@ -45,11 +45,11 @@ $font-stack: 'Avenir Next', 'Arial', sans-serif;
   padding: 20px;
   background-color: $green-secondary-5;
   background-image: url(https://fm.cnbc.com/applications/cnbc.com/resources/files/2020/01/29/background-5.png);
-  background-position: left 105px;
+  background-position: left 75px;
   background-repeat: no-repeat;
   background-size: 620px;
   @include x-small {
-    background-position: left 160px;
+    background-position: left 110px;
   }
 
   .intro, .chart-note {
@@ -57,7 +57,7 @@ $font-stack: 'Avenir Next', 'Arial', sans-serif;
     font-weight: 500;
     letter-spacing: .2px;
     margin-bottom: 20px;
-    max-width: 490px;
+    max-width: 505px;
   }
 
   b {
@@ -72,10 +72,9 @@ $font-stack: 'Avenir Next', 'Arial', sans-serif;
     font-weight: 600;
     letter-spacing: 1px;
     color: white;
-    max-width: 265px;
+    // max-width: 265px;
     @include sm-md-xl {
       font-size: 24px;
-      max-width: 460px;
     }
   }
 
@@ -106,6 +105,12 @@ $font-stack: 'Avenir Next', 'Arial', sans-serif;
         width: 220px;
       }
     }
+    &.float {
+      @include sm-md-xl {
+        float: left;
+        margin-right: 25px;
+      }
+    }
     &.money-input {
       &:after {
         content: '$';
@@ -119,10 +124,6 @@ $font-stack: 'Avenir Next', 'Arial', sans-serif;
         @include x-small {
           left: -210px;
         }
-      }
-      @include sm-md-xl {
-        float: left;
-        margin-right: 25px;
       }
       & input {
         padding-left: 25px;
@@ -181,7 +182,7 @@ $font-stack: 'Avenir Next', 'Arial', sans-serif;
   }
 
   .value-text  {
-    font-size: 22px;
+    font-size: 20px;
     & .result {
       font-weight: 600;
       color: white;

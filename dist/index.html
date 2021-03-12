@@ -8,7 +8,7 @@
   <title>Graphic preview</title>
 
   <!--build:css css/styles.min.css-->
-  <link rel="stylesheet" href="css/stimulus-calculator-feb_styles.css">
+  <link rel="stylesheet" href="css/child-credit-calculator_styles.css">
   <!--endbuild-->
 
 </head>
@@ -18,9 +18,9 @@
 
   <div id="calculator">
 
-    <p class="calculator-label">HOW MUCH COULD YOU GET IN YOUR NEXT STIMULUS CHECK?</p>
+    <p class="calculator-label">2021 Child tax credit calculator</p>
 
-    <div class="intro">Your payment will be based on your most recent tax return, either from 2020 or 2019. You can find your adjusted gross income on line 8b of the 1040 federal tax form.</div>
+    <div class="intro">Your payments will be based on your most recent tax return, either from 2020 or 2019, and the age of your child(ren) as of December 31, 2021. You can find your adjusted gross income on line 8b of the 1040 federal tax form.</div>
 
     <div class="flex-container">
 
@@ -29,10 +29,10 @@
         <label>Filing status</label>
         <div class="calc-input-radio">
           <input type="radio" id="single" name="status" v-model="filingStatus" value="single"></input>
-          <label for="single">Single</label>
+          <label for="single">Individual</label>
     
           <input type="radio" id="married" name="status" v-model="filingStatus" value="married"></input>
-          <label for="married">Married</label>
+          <label for="married">Joint</label>
 
           <input type="radio" id="headofhousehold" name="status" v-model="filingStatus" value="head"></input>
           <label for="headofhousehold">Head of household</label>
@@ -43,9 +43,14 @@
           <input type="text" name="income" v-model="income" maxlength="10" oninput="this.value=this.value.slice(0,this.maxLength)"></input>
         </div>
     
-        <div class="calc-input">
-          <label for="children">Number of dependents</label>
+        <div class="calc-input float">
+          <label for="children">Number of children under 6</label>
           <input type="number" name="children" v-model.number="children" maxlength="2" oninput="this.value=this.value.slice(0,this.maxLength)" ></input>
+        </div>
+
+        <div class="calc-input">
+          <label for="children-old">Number of children 6-17</label>
+          <input type="number" name="children-old" v-model.number="childrenOld" maxlength="2" oninput="this.value=this.value.slice(0,this.maxLength)" ></input>
         </div>
 
         <button v-on:click="getResults">Calculate</button>
@@ -57,11 +62,12 @@
 
         <div class="results" v-show="totalStimulus">
           
-          <p class="value-text" v-show="totalStimulus && !nothing">You could receive a <span class="result">${{totalStimulus}}</span> stimulus payment.</p>
+          <p class="value-text" v-show="totalStimulus && !nothing && !other">You should receive a <span class="result">${{totalStimulus}}</span> child tax credit, with monthly payments of <span class="result">${{monthlyPayment}}</span> from July to December 2021 and a credit of <span class="result">${{taxCredit}}</span> when you file your 2021 tax return.</p>
 
-          <p class="value-text" v-show="nothing">You will likely not receive a stimulus payment.</p>
+          <p class="value-text" v-show="nothing">Your income is too high to receive the child tax credit.</p>
 
-          <div class="chart-note">Note: This calculation is based on the bill passed by the Senate. Details in the final bill may differ.</div>
+          <!-- <p class="value-text" v-show="other">You should receive a child tax credit of <span class="result">${{totalStimulus}}</span>.</p> -->
+
           
         </div>
       </transition>
@@ -81,7 +87,7 @@
   <!-- <script src="https://code.highcharts.com/highcharts-more.js"></script> -->
   <!--build:js js/main.min.js -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
-  <script src="js/stimulus-calculator-feb_main.js"></script>
+  <script src="js/child-credit-calculator_main.js"></script>
   <!-- endbuild -->
 </body>
 </html>

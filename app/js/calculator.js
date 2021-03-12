@@ -3,11 +3,15 @@ var calculator = new Vue({
     data: {
       income: '50,000',
       filingStatus:'single',
-      children: 0,
-      totalAdult: '',
+      children: 2,
+      childrenOld: 0,
       totalChildren: '',
+      totalChildrenOld: '',
       totalStimulus: '',
-      nothing: ''
+      nothing: '',
+      other: '',
+      monthlyPayment: '',
+      taxCredit: ''
 
     },
     watch: { 
@@ -21,46 +25,65 @@ var calculator = new Vue({
       // functions go here
       getResults: function () {
 
+        this.other = false;
+        this.nothing = false;
+
         this.totalStimulus = 0;
-        this.totalAdult = 1400;
         this.totalChilden = 0;
+        this.totalChildenOld = 0;
         this.nothing = false;
 
         let maxFull = 75000,
-            maxCap = 5000,
-            multiplier = 1,
-            incomeInt = parseInt((this.income).replace(/,/g, ""), 10);
+            maxCap = 200000,
+            incomeInt = parseInt((this.income).replace(/,/g, ""), 10),
+            allChildren = this.children + this.childrenOld;
         
         if (this.filingStatus == 'married') {
             maxFull = 150000;
-            maxCap = 10000;
-            multiplier = 2;
+            maxCap = 400000;
         } else if (this.filingStatus == 'head') {
             maxFull = 112500;
-            maxCap = 7500;
         }
 
-        let maxIncome = maxFull + maxCap;
+        this.totalChildren = this.children*3600;
+        this.totalChildrenOld = this.childrenOld*3000;
 
-        this.totalChildren = this.children*1400;
-        this.totalAdult = this.totalAdult*multiplier;
+        this.totalStimulus = this.totalChildren + this.totalChildrenOld;
 
-        this.totalStimulus = this.totalAdult + this.totalChildren;
+        if (incomeInt > maxFull ) {
+            this.totalStimulus = this.totalStimulus - (incomeInt - maxFull)*.05;
+        } 
 
-        if (incomeInt > maxFull && incomeInt <= maxIncome) {
-            this.totalStimulus = ((maxCap - (incomeInt - maxFull))*this.totalStimulus)/maxCap;
-        } else if (incomeInt > maxIncome) {
-            this.totalStimulus = 0;
+
+        if (this.totalStimulus <= 0 && incomeInt < maxCap) {
+            this.totalStimulus = (allChildren)*2000;
+            // this.other = true;   
+        } else if (this.totalStimulus < (2000*allChildren) && this.totalStimulus > 0){
+            this.totalStimulus = (allChildren)*2000;
+        } else if (this.totalStimulus <= 0 && incomeInt >= maxCap) {
+            console.log(this.totalStimulus);
+            console.log(maxFull);
+            console.log((incomeInt - maxCap)*.05);
+            this.totalStimulus = (allChildren*2000) - ((incomeInt - maxCap)*.05);
+            console.log(this.totalStimulus);
+            // this.other = true;  
         }
 
-        console.log(this.totalStimulus)
-
+        this.monthlyPayment = (this.totalStimulus)/12;
+        this.taxCredit = (this.totalStimulus)/2;
+        
+        
         if (this.totalStimulus <= 0) {
             this.nothing = true;
         }
 
-
         this.totalStimulus = this.totalStimulus.toLocaleString(undefined,
+            {'minimumFractionDigits':0,'maximumFractionDigits':2});
+
+        this.monthlyPayment = this.monthlyPayment.toLocaleString(undefined,
+            {'minimumFractionDigits':0,'maximumFractionDigits':2});
+
+        this.taxCredit = this.taxCredit.toLocaleString(undefined,
             {'minimumFractionDigits':0,'maximumFractionDigits':2});
 
       },
